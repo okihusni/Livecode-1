@@ -10,21 +10,32 @@ class FoodController {
       res.status(201).json({ data: { id: food.id, price: food.price, ingredients: food.ingredients, tag: food.tag, UserId: userId } });
     })
     .catch(err => {
-      next(err);
+      console.log(err);
     })
   }
 
   static listFood (req, res, next) {
     const { userId } = req;
 
-    Food.findByPk(userId)
+    Food.findAll({ where: { userId }})
     .then(foods => {
-      res.status(200).json( { data: {} } )
+      res.status(200).json( { data: {foods} } )
+    })
+    .catch(err => {
+      console.log(err);
     })
   }
 
   static deleteFood (req, res, next) {
+    const { id } = req.params;
 
+    Food.destroy(id)
+    .then(() => {
+      res.status(200).json({ message: 'Successfully delete food from your menu' });
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
 }

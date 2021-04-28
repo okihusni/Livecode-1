@@ -23,7 +23,16 @@ const authentication = (req, res, next) => {
 }
 
 const authorization = (req, res, next) => {
+  const { id } = req.params;
 
+  Food.findOne({ where: {id, userId: req.userId} })
+  .then(food => {
+    if(!food) throw { name: 'not_found' };
+    req.food = food;
+  })
+  .catch(err => {
+    next(err)
+  })
 }
 
 module.exports = { authentication, authorization };
