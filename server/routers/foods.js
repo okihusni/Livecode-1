@@ -7,5 +7,4 @@ router.post('/', FoodController.addFood);
 router.get('/', FoodController.listFood);
 router.delete('/:id', authorization, FoodController.deleteFood);
 
-
 module.exports = router;

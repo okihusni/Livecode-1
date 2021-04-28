@@ -7,6 +7,10 @@ const errorHandler = (err, req, res, next) => {
       statusCode = 401;
       error.push('password or email wrong');
       break;
+    case 'SequelizeValidationError':
+      statusCode = 400;
+      error.push('sequelize validation error');
+      break;
     default:
       statusCode = 500;
       err.push('internal server error');
